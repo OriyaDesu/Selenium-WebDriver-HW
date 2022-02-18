@@ -1,21 +1,25 @@
 package pages;
 
-import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends AbstractPage {
-
-    // Обычный поиск элемента
-    private WebElement user = driver.findElement(By.id(""));
+    @FindBy(id="username")
+    private WebElement userInput;
 
     // Поиск элемента через аннотацию
-    @FindBy(id = "")
-    private WebElement password;
+    @FindBy(id = "password")
+    private WebElement passwordInput;
 
-    // todo: остальные элементы страницы
+    public LoginPage(){
+        PageFactory.initElements(driver, this);
+    }
 
-    public void login(String user, String password) {
-        // todo
+    public TicketsPage login(String user, String password) {
+        userInput.sendKeys(user);
+        passwordInput.sendKeys(password, Keys.ENTER);
+        return new TicketsPage();
     }
 }
